@@ -1,7 +1,7 @@
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class GitKrakenPartTwo implements Callable<Integer> {
+public class GitKrakenPartTwo implements Callable<Long> {
 
     static int n;
 
@@ -13,9 +13,9 @@ public class GitKrakenPartTwo implements Callable<Integer> {
             futures[i] = executorService.submit(new GitKrakenPartTwo());
         }
         try{
-            int sum = 0;
+            long sum = 0;
             for(int i=0; i<n; i++){
-                sum += (int)(futures[i].get());
+               sum += (Long)(futures[i].get());
             }
             System.out.println(sum);
         }
@@ -26,10 +26,12 @@ public class GitKrakenPartTwo implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() throws Exception {
+    public Long call() throws Exception {
+        long start = System.currentTimeMillis();
         for(int i=0; i<100000000/n; i++) {
 
         }
-        return 100000000/n;
+        long end = System.currentTimeMillis();
+        return (end-start);
     }
 }
